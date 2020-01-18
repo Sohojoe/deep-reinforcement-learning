@@ -95,6 +95,40 @@ def mc_prediction_q(env, num_episodes, generate_episode, gamma=1.0):
 
 
 #----------- ---
+# roll out episode, using Q and pi with epslion
+def generate_episode_using_pi(bj_env, pi, pi_epslion):
+    episode = []
+    state = bj_env.reset()
+    while True:
+        random_action = env.action_space.sample()
+        greedy_action = pi[state] if state in pi else random_action
+        action = greedy_action if np.random.random() >= pi_epslion \
+            else random_action
+        next_state, reward, done, info = bj_env.step(action)
+        episode.append((state, action, reward))
+        state = next_state
+        if done:
+            break
+    return episode
+
+def score_policy(policy, assessment_games = 100000):
+    won = 0
+    lost = 0
+    drawn = 0
+    for i in range(assessment_games):
+        episode = generate_episode_using_pi(env, policy, 0)
+        _, _, rewards = zip(*episode)
+        score = sum(rewards)
+        if score > 0: won +=1
+        elif score <0: lost +=1
+        else: drawn +=1
+    win_pc  = won*1./assessment_games * 100.
+    lost_pc = lost*1./assessment_games * 100.
+    draw_pc = drawn*1./assessment_games * 100.
+    win_rate = win_pc / (win_pc+lost_pc) * 100.
+    print ("Win rate =",  round(win_rate,1), \
+        "%. Won", round(win_pc,1), "%. Lost", round(lost_pc,1), "%. Drawn", round(draw_pc,1), "%.")
+
 def mc_control(env, num_episodes, alpha, gamma=1.0):
     nA = env.action_space.n
     # initialize empty dictionary of arrays
@@ -108,6 +142,10 @@ def mc_control(env, num_episodes, alpha, gamma=1.0):
         if i_episode % 1000 == 0:
             print("\rEpisode {}/{}.".format(i_episode, num_episodes), end="")
             sys.stdout.flush()
+        # if i_episode > 0 and i_episode % 50000 == 0:
+        #     score_policy(policy)
+            # score_policy(policy)
+            # score_policy(policy)
         
         ## TODO: complete the function
         # roll out episode, using Q and pi with epslion
@@ -140,24 +178,32 @@ def mc_control(env, num_episodes, alpha, gamma=1.0):
                 for f in range(t,len(episode)):
                     _,_,next_reward = episode[f]
                     G += next_reward*pow(gamma, f-t)
-                N[s][a] += 1.
-                # returns_sum[s][a] += G
-                # Q[s][a] = returns_sum[s][a] / N[s][a]
-                Q[s][a] = Q[s][a] + 1./N[s][a] * (G-Q[s][a])
-                policy[s] = np.argmax(Q[s])  # just update the policy on a change
+                # Incremental Mean
+                # N[s][a] += 1.
+                # Q[s][a] = Q[s][a] + 1./N[s][a] * (G-Q[s][a])
+                # Constant-alpha
+                Q[s][a] = (1-alpha) * Q[s][a] + alpha * G
+                # just update the policy on a change
+                policy[s] = np.argmax(Q[s])  
 
     return policy, Q
 
-policy, Q = mc_control(env, 500000, .2, .95)
+
+policy, Q = mc_control(env, 1000000, .003, 1.)
+# policy, Q = mc_control(env, 1000000, .1, 1.)
+# policy, Q = mc_control(env, 500000, .2, .95)
 # policy, Q = mc_control(env, 500, .2, .95)
 
+print ("")
 # obtain the corresponding state-value function
 V = dict((k,np.max(v)) for k, v in Q.items())
 
-# plot the state-value function
+score_policy(policy)
+
+# # plot the state-value function
 plot_blackjack_values(V)
 
-# plot the policy
+# # plot the policy
 plot_policy(policy)
 
 print ('----- done -----')
