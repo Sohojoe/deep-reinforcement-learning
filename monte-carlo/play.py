@@ -100,6 +100,7 @@ def mc_control(env, num_episodes, alpha, gamma=1.0):
     # initialize empty dictionary of arrays
     Q = defaultdict(lambda: np.zeros(nA))
     N = defaultdict(lambda: np.zeros(nA))
+    policy = defaultdict(lambda: np.zeros(nA))
     epslion = 0.1
     # loop over episodes
     for i_episode in range(1, num_episodes+1):
@@ -110,26 +111,25 @@ def mc_control(env, num_episodes, alpha, gamma=1.0):
         
         ## TODO: complete the function
         # roll out episode, using Q and pi with epslion
-        def generate_episode_using_pi(bj_env, pi_Q, pi_epslion):
+        def generate_episode_using_pi(bj_env, pi, pi_epslion):
             episode = []
             state = bj_env.reset()
             while True:
-                if np.random.random() >= pi_epslion:
-                    # greedy
-                    # action_values = N[state]
-                    action_values = pi_Q[state]
-                    action = np.argmax(action_values)
-                    pass
-                else:
-                    # sample action
-                    action = env.action_space.sample()
+                random_action = env.action_space.sample()
+                greedy_action = pi[state] if state in pi else random_action
+                action = greedy_action if np.random.random() >= pi_epslion \
+                    else random_action
                 next_state, reward, done, info = bj_env.step(action)
                 episode.append((state, action, reward))
                 state = next_state
                 if done:
                     break
             return episode
-        episode = generate_episode_using_pi(env, Q, epslion)
+
+        # sets the whole policy, but is slow
+        # for s, v in Q.items():
+        #     policy[s] = np.argmax(v)
+        episode = generate_episode_using_pi(env, policy, epslion)
 
         # update Q table
         first_visit = []
@@ -144,12 +144,7 @@ def mc_control(env, num_episodes, alpha, gamma=1.0):
                 # returns_sum[s][a] += G
                 # Q[s][a] = returns_sum[s][a] / N[s][a]
                 Q[s][a] = Q[s][a] + 1./N[s][a] * (G-Q[s][a])
-
-    # # obtain the corresponding state-value function
-    # policy = dict((k,(k[0]>18)*(np.dot([0.8, 0.2],v)) + (k[0]<=18)*(np.dot([0.2, 0.8],v))) \
-    #       for k, v in Q.items())
-    
-    policy = dict((k, np.argmax(v)) for k, v in Q.items())
+                policy[s] = np.argmax(Q[s])  # just update the policy on a change
 
     return policy, Q
 
