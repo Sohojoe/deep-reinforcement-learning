@@ -95,14 +95,28 @@ def mc_prediction_q(env, num_episodes, generate_episode, gamma=1.0):
 
 
 #----------- ---
-# roll out episode, using Q and pi with epslion
-def generate_episode_using_pi(bj_env, pi, pi_epslion):
+# roll out episode, using Q and pi with epsilon
+def argmax(q_values):
+    top = float("-inf")
+    ties = []
+
+    for i in range(len(q_values)):
+        if q_values[i] > top:
+            top = q_values[i]
+            ties = []
+
+        if q_values[i] == top:
+            ties.append(i)
+
+    return np.random.choice(ties)
+
+def generate_episode_using_pi(bj_env, pi, pi_epsilon):
     episode = []
     state = bj_env.reset()
     while True:
         random_action = env.action_space.sample()
         greedy_action = pi[state] if state in pi else random_action
-        action = greedy_action if np.random.random() >= pi_epslion \
+        action = greedy_action if np.random.random() >= pi_epsilon \
             else random_action
         next_state, reward, done, info = bj_env.step(action)
         episode.append((state, action, reward))
@@ -129,13 +143,13 @@ def score_policy(policy, assessment_games = 100000):
     print ("Win rate =",  round(win_rate,1), \
         "%. Won", round(win_pc,1), "%. Lost", round(lost_pc,1), "%. Drawn", round(draw_pc,1), "%.")
 
-def mc_control(env, num_episodes, alpha, gamma=1.0):
+def mc_control(env, num_episodes, alpha, gamma=1.0, eps_start=1.0, eps_decay=.99999, eps_min=0.05):
     nA = env.action_space.n
     # initialize empty dictionary of arrays
     Q = defaultdict(lambda: np.zeros(nA))
     N = defaultdict(lambda: np.zeros(nA))
     policy = defaultdict(lambda: np.zeros(nA))
-    epslion = 0.1
+    epsilon = eps_start
     # loop over episodes
     for i_episode in range(1, num_episodes+1):
         # monitor progress
@@ -148,14 +162,14 @@ def mc_control(env, num_episodes, alpha, gamma=1.0):
             # score_policy(policy)
         
         ## TODO: complete the function
-        # roll out episode, using Q and pi with epslion
-        def generate_episode_using_pi(bj_env, pi, pi_epslion):
+        # roll out episode, using Q and pi with epsilon
+        def generate_episode_using_pi(bj_env, pi, pi_epsilon):
             episode = []
             state = bj_env.reset()
             while True:
                 random_action = env.action_space.sample()
                 greedy_action = pi[state] if state in pi else random_action
-                action = greedy_action if np.random.random() >= pi_epslion \
+                action = greedy_action if np.random.random() >= pi_epsilon \
                     else random_action
                 next_state, reward, done, info = bj_env.step(action)
                 episode.append((state, action, reward))
@@ -167,7 +181,8 @@ def mc_control(env, num_episodes, alpha, gamma=1.0):
         # sets the whole policy, but is slow
         # for s, v in Q.items():
         #     policy[s] = np.argmax(v)
-        episode = generate_episode_using_pi(env, policy, epslion)
+        epsilon = max(epsilon*eps_decay, eps_min)
+        episode = generate_episode_using_pi(env, policy, epsilon)
 
         # update Q table
         first_visit = []
@@ -184,12 +199,13 @@ def mc_control(env, num_episodes, alpha, gamma=1.0):
                 # Constant-alpha
                 Q[s][a] = (1-alpha) * Q[s][a] + alpha * G
                 # just update the policy on a change
-                policy[s] = np.argmax(Q[s])  
+                policy[s] = argmax(Q[s])  
 
     return policy, Q
 
 
-policy, Q = mc_control(env, 1000000, .003, 1.)
+policy, Q = mc_control(env, 30000000, .0003, 1.)
+# policy, Q = mc_control(env, 1000000, .003, 1.)
 # policy, Q = mc_control(env, 1000000, .1, 1.)
 # policy, Q = mc_control(env, 500000, .2, .95)
 # policy, Q = mc_control(env, 500, .2, .95)
