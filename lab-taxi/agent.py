@@ -13,8 +13,8 @@ class Agent:
         self.epsilon = None
         self.nA = nA
         self.Q = defaultdict(lambda: np.zeros(self.nA))
-        self.gamma = 1.
-        # self.gamma = 0.95
+        # self.gamma = 1.
+        self.gamma = 0.95
         self.epsilon = 0.005
         self.alpha = 0.2
         self.i_episode = 1
