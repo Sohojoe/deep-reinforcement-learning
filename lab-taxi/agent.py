@@ -15,8 +15,10 @@ class Agent:
         self.Q = defaultdict(lambda: np.zeros(self.nA))
         # self.gamma = 1.
         self.gamma = 0.9
+        # self.epsilon = 0.005
+        # self.epsilon = 0.5
         self.epsilon = 0.005
-        self.alpha = 0.2
+        self.alpha = .2
         self.i_episode = 1
     
     def argmax(self, q_values):
@@ -69,7 +71,19 @@ class Agent:
         # s1, r1, done, info = env.step(a)
         # a1 = e_greedy_sample(Q, s1, epsilon, env.action_space)
         
-        self.epsilon = 1.0 / self.i_episode
+        # self.epsilon = 1.0 / self.i_episode
+        # if self.i_episode > 3000:
+        #     # self.alpha = .3
+        #     eps_decay=.9999993
+        #     eps_min=0.0001
+        #     self.epsilon = max(self.epsilon*eps_decay, eps_min)
+        # alpha_decay=.9999953
+        # alpha_min=0.01
+        # eps_min=0.00003
+        # self.epsilon = max(self.epsilon, eps_min)
+        # self.alpha = max(self.alpha*alpha_decay, alpha_min)
+        if done and (self.i_episode % 2500 ==0):
+            print("", self.epsilon, self.alpha)
 
         value = self.Q[state][action]
         scale = np.ones(self.nA) * self.epsilon/self.nA
@@ -79,4 +93,5 @@ class Agent:
 #             target_value = r1 + (gamma * scale)
         self.Q[state][action] = value + (self.alpha*(target_value - value))
         if done:
-            self.i_episode += 1        
+            self.i_episode += 1
+            # print(self.epsilon)     
