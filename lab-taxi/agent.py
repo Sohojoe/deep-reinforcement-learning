@@ -12,14 +12,19 @@ class Agent:
         """
         self.epsilon = None
         self.nA = nA
-        self.Q = defaultdict(lambda: np.zeros(self.nA))
-        # self.gamma = 1.
+        # self.Q = defaultdict(lambda: np.zeros(self.nA))
+        self.Q = defaultdict(lambda: np.full(self.nA, 01.30))
+
         self.gamma = 0.9
-        # self.epsilon = 0.005
-        # self.epsilon = 0.5
-        self.epsilon = 0.005
+        self.epsilon = 0.1
         self.alpha = .2
         self.i_episode = 1
+        # self.alg = 'q'
+        # self.alg = 'saras'
+        self.alg = 'expected_saras'
+        
+        self.episode_step = 0
+        self.next_action = None
     
     def argmax(self, q_values):
         top = float("-inf")
@@ -35,10 +40,14 @@ class Agent:
         return np.random.choice(ties)
 
     def e_greedy_sample(self, state):
-        random_action = np.random.choice(self.nA)
-        greedy_action = self.argmax(self.Q[state]) if state in self.Q else random_action
-        action = greedy_action if np.random.random() >= self.epsilon \
-            else random_action
+        if self.next_action is not None:
+            action = self.next_action
+            self.next_action = None
+            return action
+        if np.random.random() >= self.epsilon:
+            action = self.argmax(self.Q[state])
+        else:
+            action = np.random.choice(self.nA)
         return action
 
     def select_action(self, state):
@@ -53,7 +62,7 @@ class Agent:
         - action: an integer, compatible with the task's action space
         """
         # action = np.random.choice(self.nA)
-        action = self.e_greedy_sample(state)
+        action = self.e_greedy_sample(state) 
         return action
 
     def step(self, state, action, reward, next_state, done):
@@ -67,31 +76,26 @@ class Agent:
         - next_state: the current state of the environment
         - done: whether the episode is complete (True or False)
         """
-        # self.Q[state][action] += 1
-        # s1, r1, done, info = env.step(a)
-        # a1 = e_greedy_sample(Q, s1, epsilon, env.action_space)
-        
-        # self.epsilon = 1.0 / self.i_episode
-        # if self.i_episode > 3000:
-        #     # self.alpha = .3
-        #     eps_decay=.9999993
-        #     eps_min=0.0001
-        #     self.epsilon = max(self.epsilon*eps_decay, eps_min)
-        # alpha_decay=.9999953
-        # alpha_min=0.01
-        # eps_min=0.00003
-        # self.epsilon = max(self.epsilon, eps_min)
-        # self.alpha = max(self.alpha*alpha_decay, alpha_min)
         if done and (self.i_episode % 2500 ==0):
             print("", self.epsilon, self.alpha)
 
         value = self.Q[state][action]
-        scale = np.ones(self.nA) * self.epsilon/self.nA
-        scale[self.argmax(self.Q[next_state])] += 1.-self.epsilon
-        scale = np.dot(self.Q[next_state], scale)
-        target_value = reward + self.gamma * scale if not done else 0
-#             target_value = r1 + (gamma * scale)
+        if self.alg == 'saras':
+            next_action = self.e_greedy_sample(state)
+            next_value = self.Q[next_state][next_action]
+        elif self.alg == 'q':
+            next_value = self.argmax(self.Q[next_state])
+        elif self.alg == 'expected_saras':
+            next_value = np.ones(self.nA) * self.epsilon/self.nA
+            next_value[self.argmax(self.Q[next_state])] += 1.-self.epsilon
+            next_value = np.dot(self.Q[next_state], next_value)
+        # next_value = 0. if done else next_value
+        target_value = reward + self.gamma * next_value
         self.Q[state][action] = value + (self.alpha*(target_value - value))
+        self.episode_step += 1
         if done:
+            self.episode_step = 0
+            self.next_action = None
             self.i_episode += 1
-            # print(self.epsilon)     
+            self.epsilon /= 2.
+#             self.epsilon = max(self.epsilon, 0.03)
