@@ -2,6 +2,7 @@ from collections import deque
 import sys
 import math
 import numpy as np
+import time
 
 def interact(env, agent, num_episodes=20000, window=100):
     """ Monitor agent's performance.
@@ -41,6 +42,9 @@ def interact(env, agent, num_episodes=20000, window=100):
             samp_reward += reward
             # update the state (s <- s') to next time step
             state = next_state
+            if (i_episode % 1000 ==0):
+                env.render()
+                time.sleep(.1)
             if done:
                 # save final sampled reward
                 samp_rewards.append(samp_reward)
