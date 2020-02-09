@@ -100,7 +100,6 @@ def dqn(n_episodes=2000, max_t=1000, eps_start=1.0, eps_end=0.01, eps_decay=0.99
             next_state = env_info.vector_observations[0]   # get the next state
             reward = env_info.rewards[0]                   # get the reward
             done = env_info.local_done[0]                  # see if episode has finished
-            action = agent.act(state, eps)
             # next_state, reward, done, _ = env.step(action)
             agent.step(state, action, reward, next_state, done)
             state = next_state
