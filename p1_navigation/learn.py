@@ -19,7 +19,8 @@ import random
 
 # env = UnityEnvironment(file_name="Banana.app")
 
-env = UnityEnvironment(file_name="Banana.app")
+# env = UnityEnvironment(file_name="Banana.app")
+env = UnityEnvironment(file_name="Banana_Windows_x86_64/Banana.exe")
 
 # get the default brain
 brain_name = env.brain_names[0]
@@ -94,6 +95,7 @@ def dqn(n_episodes=2000, max_t=1000, eps_start=1.0, eps_end=0.01, eps_decay=0.99
         for t in range(max_t):
             # action = np.random.randint(action_size)        # select random action
             action = agent.act(state, eps)                 # select an action
+            action = action.astype(int)
             env_info = env.step(action)[brain_name]        # send the action to the environment
             next_state = env_info.vector_observations[0]   # get the next state
             reward = env_info.rewards[0]                   # get the reward
