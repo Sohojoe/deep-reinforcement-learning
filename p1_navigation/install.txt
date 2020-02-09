@@ -1,0 +1,15 @@
+Create (and activate) a new environment with Python 3.6.
+
+conda env create --file environment.yml
+source p1_navigation
+
+
+Linux or Mac:
+conda create --name p1_navigation python=3.6
+source p1_navigation
+
+Windows:
+conda create --name p1_navigation python=3.6 
+activate p1_navigation
+
+pip install .
