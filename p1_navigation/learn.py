@@ -72,7 +72,7 @@ env_info = env.reset(train_mode=True)[brain_name]
 agent = Agent(state_size=state_size, action_size=action_size, seed=0)
 
 
-def dqn(n_episodes=2000, max_t=1000, eps_start=1.0, eps_end=0.01, eps_decay=0.995):
+def dqn(n_episodes=1000, max_t=1000, eps_start=1.0, eps_end=0.01, eps_decay=0.995):
     """Deep Q-Learning.
     
     Params
