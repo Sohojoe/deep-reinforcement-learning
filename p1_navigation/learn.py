@@ -67,11 +67,11 @@ print('States have length:', state_size)
 
 from dqn_agent import Agent
 
-seed=0
-# seed=1
-# seed=2
-# seed=3
-# seed=4
+seed = 0
+# seed = 1
+# seed = 2
+# seed = 3
+# seed = 4
 
 env_info = env.reset(train_mode=True)[brain_name]
 agent = Agent(state_size=state_size, action_size=action_size, seed=seed)
@@ -92,6 +92,7 @@ def dqn(n_episodes=1000, max_t=1000, eps_start=1.0, eps_end=0.01, eps_decay=0.99
     scores_window = deque(maxlen=100)  # last 100 scores
     eps = eps_start                    # initialize epsilon
     high_score = 5
+    has_new_high_score = False
     high_scores_window = deque(maxlen=10)
     for i_episode in range(1, n_episodes+1):
         env_info = env.reset(train_mode=True)[brain_name]
@@ -115,13 +116,17 @@ def dqn(n_episodes=1000, max_t=1000, eps_start=1.0, eps_end=0.01, eps_decay=0.99
         scores.append(score)              # save most recent score
         high_scores_window.append(score)  # save most recent score
         eps = max(eps_end, eps_decay*eps) # decrease epsilon
-        print('\rEpisode {}\tAverage Score: {:.2f}'.format(i_episode, np.mean(scores_window)), end="")
+        print('\rEpisode {}\tAverage Score: {:.2f}\tEpsilon: {:.2f}'.format(i_episode, np.mean(scores_window), eps), end="")
         if i_episode % 100 == 0:
-            print('\rEpisode {}\tAverage Score: {:.2f}'.format(i_episode, np.mean(scores_window)))
+            print('\rEpisode {}\tAverage Score: {:.2f}\tEpsilon: {:.2f}'.format(i_episode, np.mean(scores_window), eps))
+            if has_new_high_score:
+                print('\rNew High Score: {:.2f}'.format(high_score))
+                has_new_high_score = False
         if np.mean(high_scores_window)>high_score:
+            has_new_high_score = True
             high_score = np.mean(high_scores_window)
-            print('\rNew high score on episode {:d}\t High Score: {:.2f}'.format(i_episode-10, high_score))
             torch.save(agent.qnetwork_local.state_dict(), 'checkpoint.pth')
+    print('\rHigh Score: {:.2f}'.format(high_score))
     return scores
 
 scores = dqn()

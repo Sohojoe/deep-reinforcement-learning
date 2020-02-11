@@ -19,8 +19,8 @@ class QNetwork(nn.Module):
         "*** YOUR CODE HERE ***"
         num_inputs = state_size
         self.in_layer = nn.Linear(num_inputs, 32)
-        self.hidden_1 = nn.Linear(32, 16)
-        self.out_layer = nn.Linear(16, action_size)
+        self.hidden_1 = nn.Linear(32, 32)
+        self.out_layer = nn.Linear(32, action_size)
 
     def forward(self, state):
         """Build a network that maps state -> action values."""
