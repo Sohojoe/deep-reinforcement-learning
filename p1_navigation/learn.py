@@ -19,7 +19,8 @@ import random
 
 # env = UnityEnvironment(file_name="Banana.app")
 
-env = UnityEnvironment(file_name="Banana.app")
+# env = UnityEnvironment(file_name="Banana.app")
+env = UnityEnvironment(file_name="Banana_Windows_x86_64/Banana.exe")
 
 # get the default brain
 brain_name = env.brain_names[0]
@@ -71,7 +72,7 @@ env_info = env.reset(train_mode=True)[brain_name]
 agent = Agent(state_size=state_size, action_size=action_size, seed=0)
 
 
-def dqn(n_episodes=2000, max_t=1000, eps_start=1.0, eps_end=0.01, eps_decay=0.995):
+def dqn(n_episodes=1000, max_t=1000, eps_start=1.0, eps_end=0.01, eps_decay=0.995):
     """Deep Q-Learning.
     
     Params
@@ -94,11 +95,11 @@ def dqn(n_episodes=2000, max_t=1000, eps_start=1.0, eps_end=0.01, eps_decay=0.99
         for t in range(max_t):
             # action = np.random.randint(action_size)        # select random action
             action = agent.act(state, eps)                 # select an action
+            action = action.astype(int)
             env_info = env.step(action)[brain_name]        # send the action to the environment
             next_state = env_info.vector_observations[0]   # get the next state
             reward = env_info.rewards[0]                   # get the reward
             done = env_info.local_done[0]                  # see if episode has finished
-            action = agent.act(state, eps)
             # next_state, reward, done, _ = env.step(action)
             agent.step(state, action, reward, next_state, done)
             state = next_state
