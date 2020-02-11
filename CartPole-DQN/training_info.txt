@@ -1,0 +1,19 @@
+
+
+— Cartpole in DQN
+
+001_seed_4 - 
+
+001_seed_3 - 
+
+001_seed_2 - 
+
+001_seed_1 - 
+Episode 1379	Average Score: 195.80	Epsilon: 0.01
+Environment solved in 1279 episodes!	Average Score: 195.80
+High Score: 332.90
+
+001_seed_0 - 
+Episode 698	Average Score: 195.18   Epsilon: 0.03
+Environment solved in 598 episodes!	Average Score: 195.18
+High Score: 244.20
