@@ -2,11 +2,28 @@
 
 — Cartpole in DQN
 
+Solved in: 598, 1279, 997, 882, 1547 - Mean: 1060.6
+Standard Deviation, s: 365.45355382045
+High Score: 244.20, 332.90, 245.80, 302.10, 223.70 - Mean: 269.74
+Standard Deviation, s: 45.775135171838
+
 001_seed_4 - 
+Episode 1647	Average Score: 195.23	Epsilon: 0.01
+Environment solved in 1547 episodes!	Average Score: 195.23
+High Score: 223.70
 
 001_seed_3 - 
+New High Score: 176.10
+Episode 982	Average Score: 195.90	Epsilon: 0.01
+Environment solved in 882 episodes!	Average Score: 195.90
+High Score: 302.10
 
 001_seed_2 - 
+New High Score: 197.40
+Episode 1000    Average Score: 145.96	Epsilon: 0.01
+Episode 1097	Average Score: 197.31	Epsilon: 0.01
+Environment solved in 997 episodes!	Average Score: 197.31
+High Score: 245.80
 
 001_seed_1 - 
 Episode 1379	Average Score: 195.80	Epsilon: 0.01
