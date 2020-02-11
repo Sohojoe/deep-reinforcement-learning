@@ -6,10 +6,10 @@ from collections import deque
 import matplotlib.pyplot as plt
 
 seed = 0
-# seed = 1
-# seed = 2
-# seed = 3
-# seed = 4
+seed = 1
+seed = 2
+seed = 3
+seed = 4
 
 env = gym.make('CartPole-v1')
 env.seed(seed)

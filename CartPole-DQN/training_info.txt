@@ -2,6 +2,39 @@
 
 — Cartpole in DQN
 
+002
+Solved in: 337, 125, 115, 110, 134 - Mean: 164.2
+Standard Deviation, s: 97.04
+High Score: 334.6, 265.9, 335.6, 351.6, 294.2 - Mean: 316.38
+Standard Deviation, s: 35.29
+
+002_seed_4 - 
+New High Score: 263.00
+Episode 234	Average Score: 195.65	Epsilon: 0.31
+Environment solved in 134 episodes!	Average Score: 195.65
+High Score: 294.20
+
+
+002_seed_3 - 
+Episode 210	Average Score: 197.64	Epsilon: 0.35
+Environment solved in 110 episodes!	Average Score: 197.64
+High Score: 351.60
+
+002_seed_2 - 
+Episode 215	Average Score: 196.10	Epsilon: 0.34
+Environment solved in 115 episodes!	Average Score: 196.10
+High Score: 335.60
+
+002_seed_1 - 
+Environment solved in 125 episodes!	Average Score: 195.00
+High Score: 265.90
+
+002_seed_0 - 
+Episode 377	Average Score: 195.13	Epsilon: 0.15
+Environment solved in 277 episodes!	Average Score: 195.13
+High Score: 334.60
+
+001
 Solved in: 598, 1279, 997, 882, 1547 - Mean: 1060.6
 Standard Deviation, s: 365.45355382045
 High Score: 244.20, 332.90, 245.80, 302.10, 223.70 - Mean: 269.74
