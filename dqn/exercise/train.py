@@ -6,7 +6,9 @@ from collections import deque
 import matplotlib.pyplot as plt
 
 env = gym.make('LunarLander-v2')
-env.seed(0)
+# env.seed(0)
+env.seed(1)
+# env.seed(2)
 print('State shape: ', env.observation_space.shape)
 print('Number of actions: ', env.action_space.n)
 

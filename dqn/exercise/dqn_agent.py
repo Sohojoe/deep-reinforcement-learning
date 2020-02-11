@@ -7,6 +7,7 @@ from model import QNetwork
 import torch
 import torch.nn.functional as F
 import torch.optim as optim
+from torch.autograd import Variable
 
 BUFFER_SIZE = int(1e5)  # replay buffer size
 BATCH_SIZE = 64         # minibatch size
@@ -42,10 +43,44 @@ class Agent():
         self.memory = ReplayBuffer(action_size, BUFFER_SIZE, BATCH_SIZE, seed)
         # Initialize time step (for updating every UPDATE_EVERY steps)
         self.t_step = 0
-    
+
+    # save sample (error,<s,a,r,s'>) to the replay memory
+    def _append_sample(self, state, action, reward, next_state, done):
+
+        state = torch.from_numpy(state).float().unsqueeze(0).to(device)
+        self.qnetwork_local.eval()
+        with torch.no_grad():
+            action_values = self.qnetwork_local(state)
+            expected_Q = action_values[(0,action)]
+        self.qnetwork_local.train()
+
+        # ---- Vanilla DQN
+        next_state = torch.from_numpy(next_state).float().unsqueeze(0).to(device)
+        self.qnetwork_target.eval()
+        with torch.no_grad():
+            predicted_Q = self.qnetwork_target(next_state)
+            max_predicted_Q = predicted_Q.max(1)[0]
+        self.qnetwork_target.train()
+
+        target_Q = reward + (GAMMA * max_predicted_Q * (1-done))
+        error = expected_Q-target_Q
+        error = abs(error.cpu().data.numpy()[0])
+        # # get the loss
+        loss = F.mse_loss(expected_Q, target_Q)
+
+        # self.memory.add(error, (state, action, reward, next_state, done))
+        self.memory.add(state, action, reward, next_state, done)
+        # if error > 1.:
+        #     error = pow(error, 0.5)
+        # count = int(round(error,0))
+        # for _ in range(count):
+        #     self.memory.add(state, action, reward, next_state, done)
+        # if error > 10.:
+        #     print('error:', error, 'loss', loss.cpu().data)
+
     def step(self, state, action, reward, next_state, done):
         # Save experience in replay memory
-        self.memory.add(state, action, reward, next_state, done)
+        self._append_sample(state, action, reward, next_state, done)
         
         # Learn every UPDATE_EVERY time steps.
         self.t_step = (self.t_step + 1) % UPDATE_EVERY
@@ -77,7 +112,6 @@ class Agent():
 
     def learn(self, experiences, gamma):
         """Update value parameters using given batch of experience tuples.
-
         Params
         ======
             experiences (Tuple[torch.Tensor]): tuple of (s, a, r, s', done) tuples 
@@ -127,7 +161,6 @@ class Agent():
     def soft_update(self, local_model, target_model, tau):
         """Soft update model parameters.
         θ_target = τ*θ_local + (1 - τ)*θ_target
-
         Params
         ======
             local_model (PyTorch model): weights will be copied from
@@ -143,7 +176,6 @@ class ReplayBuffer:
 
     def __init__(self, action_size, buffer_size, batch_size, seed):
         """Initialize a ReplayBuffer object.
-
         Params
         ======
             action_size (int): dimension of each action
