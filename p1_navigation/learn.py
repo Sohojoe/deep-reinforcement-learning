@@ -67,11 +67,11 @@ print('States have length:', state_size)
 
 from dqn_agent import Agent
 
-# seed=0
+seed=0
 # seed=1
 # seed=2
 # seed=3
-seed=4
+# seed=4
 
 env_info = env.reset(train_mode=True)[brain_name]
 agent = Agent(state_size=state_size, action_size=action_size, seed=seed)
