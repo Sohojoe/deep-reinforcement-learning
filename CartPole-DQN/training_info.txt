@@ -1,7 +1,74 @@
 
 
 — Cartpole in DQN
-003
+---
+- 005 - DDQN + SPER (0.6)
+Solved in: 99, 126, 123, 103, 116 Mean: 113.4
+Standard Deviation, s: 11.97
+High Score: 407.7, 290.5, 341.3, 317.3, 394.2  Mean: 350.2
+Standard Deviation, s: 49.92
+
+005_seed_4 - 
+Episode 216	Average Score: 195.81	Epsilon: 0.34
+Environment solved in 116 episodes!	Average Score: 195.81
+High Score: 394.20
+
+005_seed_3 - 
+Episode 203	Average Score: 195.85	Epsilon: 0.36
+Environment solved in 103 episodes!	Average Score: 195.85
+High Score: 317.30
+
+005_seed_2 - 
+New High Score: 266.50
+Episode 223	Average Score: 196.42	Epsilon: 0.33
+Environment solved in 123 episodes!	Average Score: 196.42
+High Score: 341.30
+
+005_seed_1 - 
+Episode 226	Average Score: 195.31	Epsilon: 0.32
+Environment solved in 126 episodes!	Average Score: 195.31
+High Score: 290.50
+
+005_seed_0 - 
+Episode 199	Average Score: 195.13   Epsilon: 0.37
+Environment solved in 99 episodes!	Average Score: 195.13
+High Score: 407.70
+
+---
+- 004 - DDQN + SPER (0.4)
+Solved in: 117, 108, 214, 126, 99 Mean: 132.8
+Standard Deviation, s: 46.50
+High Score: 302.8, 303.6, 389.2, 288.6, 306.2 Mean: 318.08
+Standard Deviation, s: 40.35
+
+004_seed_4 - 
+Episode 199	Average Score: 197.90   Epsilon: 0.37
+Environment solved in 99 episodes!	Average Score: 197.90
+High Score: 306.20
+
+004_seed_3 - 
+Episode 226	Average Score: 198.26	Epsilon: 0.32
+Environment solved in 126 episodes!	Average Score: 198.26
+High Score: 288.60
+
+004_seed_2 - 
+Episode 314	Average Score: 196.14	Epsilon: 0.21
+Environment solved in 214 episodes!	Average Score: 196.14
+High Score: 389.20
+
+004_seed_1 - 
+New High Score: 303.60
+Episode 208	Average Score: 196.08	Epsilon: 0.35
+Environment solved in 108 episodes!	Average Score: 196.08
+High Score: 303.60
+
+004_seed_0 - 
+Episode 217	Average Score: 195.28	Epsilon: 0.34
+Environment solved in 117 episodes!	Average Score: 195.28
+High Score: 302.80
+
+---
+- 003 - DDQN + SPER
 Solved in: 129, 104, 106, 110, 127 - Mean: 115.2
 Standard Deviation, s: 11.90
 High Score: 412.4, 384.3, 382.2, 374.8, 352.8 - Mean: 381.3
@@ -34,9 +101,8 @@ Episode 229	Average Score: 195.59	Epsilon: 0.32
 Environment solved in 129 episodes!	Average Score: 195.59
 High Score: 412.40
 
-
-
-002
+---
+- 002
 Solved in: 337, 125, 115, 110, 134 - Mean: 164.2
 Standard Deviation, s: 97.04
 High Score: 334.6, 265.9, 335.6, 351.6, 294.2 - Mean: 316.38
@@ -68,7 +134,8 @@ Episode 377	Average Score: 195.13	Epsilon: 0.15
 Environment solved in 277 episodes!	Average Score: 195.13
 High Score: 334.60
 
-001
+---
+- 001
 Solved in: 598, 1279, 997, 882, 1547 - Mean: 1060.6
 Standard Deviation, s: 365.45355382045
 High Score: 244.20, 332.90, 245.80, 302.10, 223.70 - Mean: 269.74

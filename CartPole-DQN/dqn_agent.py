@@ -71,7 +71,7 @@ class Agent():
         # self.memory.add(error, (state, action, reward, next_state, done))
         self.memory.add(state, action, reward, next_state, done)
         if error > 1.:
-            error = pow(error, 0.5)
+            error = pow(error, 0.6)
         count = int(round(error,0))
         for _ in range(count):
             self.memory.add(state, action, reward, next_state, done)
