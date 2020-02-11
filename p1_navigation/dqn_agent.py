@@ -16,6 +16,8 @@ LR = 5e-4               # learning rate
 UPDATE_EVERY = 4        # how often to update the network
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+# python -c "import torch; print (torch.cuda.is_available())"
+print('torch.device:', device)
 
 class Agent():
     """Interacts with and learns from the environment."""
@@ -77,7 +79,6 @@ class Agent():
 
     def learn(self, experiences, gamma):
         """Update value parameters using given batch of experience tuples.
-
         Params
         ======
             experiences (Tuple[torch.Tensor]): tuple of (s, a, r, s', done) tuples 
@@ -87,17 +88,36 @@ class Agent():
 
         ## TODO: compute and minimize the loss
         "*** YOUR CODE HERE ***"
-        # Get max predicted Q values (for next states) from target model
-        Q_targets_next = self.qnetwork_target(next_states).detach().max(1)[0].unsqueeze(1)
-        # Compute Q targets for current states 
-        Q_targets = rewards + (gamma * Q_targets_next * (1 - dones))
+        
+        # get the expected Q value using the local model
+        expected_Q = self.qnetwork_local(states).gather(1, actions)
 
-        # Get expected Q values from local model
-        Q_expected = self.qnetwork_local(states).gather(1, actions)
+        # ---- Vanilla DQN
+        # predict Q value for next state using target model
+        predicted_Q = self.qnetwork_target(next_states).detach()
+        # get max predicted_Q
+        max_predicted_Q = predicted_Q.max(1)
+        max_predicted_Q = max_predicted_Q[0]
+        max_predicted_Q = max_predicted_Q.unsqueeze(1)
 
-        # Compute loss
-        loss = F.mse_loss(Q_expected, Q_targets)
-        # Minimize the loss
+        # # ----- DDQN
+        # # predict Q value for next state using target model
+        # local_actions = self.qnetwork_local(next_states).detach().max(1)[1].unsqueeze(1)
+        # max_predicted_Q = self.qnetwork_target(next_states)[local_actions].unsqueeze(1)
+        # # # predict Q value for next state using target model
+        # # predicted_Q = self.qnetwork_local(next_states).detach()
+        # # # get max predicted_Q
+        # # max_predicted_Q = predicted_Q.max(1)
+        # # max_predicted_Q = max_predicted_Q[0]
+        # # max_predicted_Q = max_predicted_Q.unsqueeze(1)        
+
+        # get the target Q using current state
+        target_Q = rewards + (gamma * max_predicted_Q * (1-dones))
+
+        # get the loss
+        loss = F.mse_loss(expected_Q, target_Q)
+
+        # minimise the loss
         self.optimizer.zero_grad()
         loss.backward()
         self.optimizer.step()        
@@ -108,7 +128,6 @@ class Agent():
     def soft_update(self, local_model, target_model, tau):
         """Soft update model parameters.
         θ_target = τ*θ_local + (1 - τ)*θ_target
-
         Params
         ======
             local_model (PyTorch model): weights will be copied from
@@ -124,7 +143,6 @@ class ReplayBuffer:
 
     def __init__(self, action_size, buffer_size, batch_size, seed):
         """Initialize a ReplayBuffer object.
-
         Params
         ======
             action_size (int): dimension of each action

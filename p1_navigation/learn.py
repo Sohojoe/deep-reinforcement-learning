@@ -20,7 +20,7 @@ import random
 # env = UnityEnvironment(file_name="Banana.app")
 
 # env = UnityEnvironment(file_name="Banana.app")
-env = UnityEnvironment(file_name="Banana_Windows_x86_64/Banana.exe")
+env = UnityEnvironment(file_name="Banana_Windows_x86_64/Banana.exe",no_graphics=True)
 
 # get the default brain
 brain_name = env.brain_names[0]
@@ -67,9 +67,14 @@ print('States have length:', state_size)
 
 from dqn_agent import Agent
 
+# seed=0
+# seed=1
+# seed=2
+# seed=3
+seed=4
 
 env_info = env.reset(train_mode=True)[brain_name]
-agent = Agent(state_size=state_size, action_size=action_size, seed=0)
+agent = Agent(state_size=state_size, action_size=action_size, seed=seed)
 
 
 def dqn(n_episodes=1000, max_t=1000, eps_start=1.0, eps_end=0.01, eps_decay=0.995):
