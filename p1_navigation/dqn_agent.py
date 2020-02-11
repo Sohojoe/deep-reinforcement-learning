@@ -92,24 +92,24 @@ class Agent():
         # get the expected Q value using the local model
         expected_Q = self.qnetwork_local(states).gather(1, actions)
 
-        # # ---- Vanilla DQN
-        # # predict Q value for next state using target model
-        # predicted_Q = self.qnetwork_target(next_states).detach()
-        # # get max predicted_Q
-        # max_predicted_Q = predicted_Q.max(1)
-        # max_predicted_Q = max_predicted_Q[0]
-        # max_predicted_Q = max_predicted_Q.unsqueeze(1)
-
-        # ----- DDQN
+        # ---- Vanilla DQN
         # predict Q value for next state using target model
-        local_actions = self.qnetwork_local(next_states).detach().max(1)[1].unsqueeze(1)
-        max_predicted_Q = self.qnetwork_target(next_states)[local_actions].unsqueeze(1)
+        predicted_Q = self.qnetwork_target(next_states).detach()
+        # get max predicted_Q
+        max_predicted_Q = predicted_Q.max(1)
+        max_predicted_Q = max_predicted_Q[0]
+        max_predicted_Q = max_predicted_Q.unsqueeze(1)
+
+        # # ----- DDQN
         # # predict Q value for next state using target model
-        # predicted_Q = self.qnetwork_local(next_states).detach()
-        # # get max predicted_Q
-        # max_predicted_Q = predicted_Q.max(1)
-        # max_predicted_Q = max_predicted_Q[0]
-        # max_predicted_Q = max_predicted_Q.unsqueeze(1)        
+        # local_actions = self.qnetwork_local(next_states).detach().max(1)[1].unsqueeze(1)
+        # max_predicted_Q = self.qnetwork_target(next_states)[local_actions].unsqueeze(1)
+        # # # predict Q value for next state using target model
+        # # predicted_Q = self.qnetwork_local(next_states).detach()
+        # # # get max predicted_Q
+        # # max_predicted_Q = predicted_Q.max(1)
+        # # max_predicted_Q = max_predicted_Q[0]
+        # # max_predicted_Q = max_predicted_Q.unsqueeze(1)        
 
         # get the target Q using current state
         target_Q = rewards + (gamma * max_predicted_Q * (1-dones))
