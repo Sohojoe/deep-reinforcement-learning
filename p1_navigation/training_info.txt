@@ -1,4 +1,169 @@
 
+After 5 seeds
+Highscore 18.70, 19.70, 19.70, 19.36, 19.60 - Mean: 19.412
+Standard Deviation, s: 0.422
+Average Score: 16.05, 15.87, 16.37, 16.09, 16.33 - Mean: 16.142
+Standard Deviation, s: 0.208
+
+After 4 seeds
+Highscore 18.70, 19.70, 19.70, 19.36 - Mean: 19.365
+Standard Deviation, s: 0.4714
+Average Score: 16.05, 15.87, 16.37, 16.09 - Mean: 16.095
+Standard Deviation, s: 0.207
+
+After 3 seeds
+Highscore 18.70, 19.70, 19.70 - Mean: 19.36
+Standard Deviation, s: 0.577
+Average Score: 16.05, 15.87, 16.37 Mean: 16
+Standard Deviation, s: 0.25
+
+
+014
+* seed 4
+Episode 800     Average Score: 13.53
+New high score on episode 815    High Score: 17.40
+New high score on episode 816    High Score: 18.10
+New high score on episode 836    High Score: 18.20
+New high score on episode 837    High Score: 19.60
+Episode 900     Average Score: 16.31
+Episode 1000    Average Score: 16.33
+
+013
+* seed 3
+New high score on episode 884    High Score: 18.30
+New high score on episode 885    High Score: 18.60
+New high score on episode 886    High Score: 18.80
+Episode 900     Average Score: 15.66
+Episode 1000    Average Score: 16.09
+
+012
+* seed 2
+Episode 800     Average Score: 15.30
+New high score on episode 792    High Score: 18.20
+New high score on episode 793    High Score: 18.40
+New high score on episode 794    High Score: 18.50
+New high score on episode 795    High Score: 18.80
+New high score on episode 841    High Score: 18.90
+New high score on episode 842    High Score: 19.40
+New high score on episode 843    High Score: 19.50
+New high score on episode 863    High Score: 19.60
+New high score on episode 864    High Score: 19.70
+Episode 900     Average Score: 17.18
+Episode 1000    Average Score: 16.37
+
+011
+* seed 1
+Episode 700     Average Score: 14.79
+New high score on episode 760    High Score: 17.80
+New high score on episode 771    High Score: 19.70
+Episode 800     Average Score: 15.75
+Episode 900     Average Score: 16.10
+Episode 1000    Average Score: 15.87
+
+
+010
+* TAU = 1e-4
+Episode 800     Average Score: 4.48
+New high score on episode 830    High Score: 6.60
+New high score on episode 831    High Score: 7.70
+New high score on episode 832    High Score: 8.50
+New high score on episode 833    High Score: 8.90
+Episode 900     Average Score: 5.36
+Episode 1000    Average Score: 3.93
+
+009
+* TAU = 1e-2
+Episode 800     Average Score: 14.71
+New high score on episode 821    High Score: 17.10
+Episode 900     Average Score: 14.72
+New high score on episode 909    High Score: 17.30
+New high score on episode 910    High Score: 17.60
+New high score on episode 936    High Score: 17.70
+Episode 1000    Average Score: 15.77
+
+008
+* TAU = 3e-3
+Episode 800     Average Score: 14.69
+Episode 900     Average Score: 15.05
+New high score on episode 919    High Score: 17.30
+New high score on episode 921    High Score: 17.40
+New high score on episode 922    High Score: 17.80
+New high score on episode 934    High Score: 18.00
+New high score on episode 937    High Score: 18.20
+New high score on episode 941    High Score: 18.40
+Episode 1000    Average Score: 16.16
+
+
+007
+* LR = 3.75e-4               # learning rate 
+Episode 600     Average Score: 13.56
+New high score on episode 658    High Score: 16.30
+New high score on episode 659    High Score: 16.80
+Episode 700     Average Score: 14.56
+New high score on episode 774    High Score: 17.30
+Episode 800     Average Score: 14.69
+New high score on episode 876    High Score: 18.40
+New high score on episode 889    High Score: 18.80
+Episode 900     Average Score: 15.69
+Episode 1000    Average Score: 15.67
+
+
+006
+* LR = 7.5e-4               # learning rate 
+Episode 700     Average Score: 13.82
+New high score on episode 703    High Score: 16.70
+New high score on episode 704    High Score: 16.80
+Episode 800     Average Score: 15.08
+New high score on episode 886    High Score: 18.70
+Episode 900     Average Score: 16.18
+Episode 1000    Average Score: 15.25
+
+005
+* LR = 2.5e-4               # learning rate 
+Episode 800     Average Score: 14.72
+New high score on episode 836    High Score: 18.10
+New high score on episode 860    High Score: 18.30
+New high score on episode 861    High Score: 18.60
+Episode 900     Average Score: 17.03
+New high score on episode 955    High Score: 18.70
+New high score on episode 985    High Score: 18.90
+Episode 1000    Average Score: 16.47
+
+
+004
+* LR = 1e-5               # learning rate 
+New high score on episode 984    High Score: 8.90
+Episode 1000    Average Score: 5.94
+
+003
+* LR = 3e-3               # learning rate 
+New high score on episode 785    High Score: 15.70
+Episode 800     Average Score: 11.24
+Episode 900     Average Score: 10.96
+Episode 1000    Average Score: 10.76
+
+002
+* LR = 1e-4              # learning rate 
+Episode 700     Average Score: 11.96
+New high score on episode 710    High Score: 15.60
+New high score on episode 712    High Score: 15.70
+New high score on episode 714    High Score: 15.90
+New high score on episode 755    High Score: 16.20
+New high score on episode 756    High Score: 16.30
+New high score on episode 760    High Score: 17.10
+Episode 800     Average Score: 14.18
+Episode 900     Average Score: 15.04
+New high score on episode 921    High Score: 17.30
+Episode 1000    Average Score: 15.39
 
 001
+* LR = 5e-4              # learning rate 
  * Trained with the example DQN from DQN/Examople
+Episode 700     Average Score: 14.06
+Episode 800     Average Score: 15.08
+New high score on episode 869    High Score: 17.80
+New high score on episode 871    High Score: 18.10
+New high score on episode 872    High Score: 18.40
+Episode 900     Average Score: 15.71
+New high score on episode 954    High Score: 18.70
+Episode 1000    Average Score: 16.05
