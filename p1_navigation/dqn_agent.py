@@ -10,7 +10,7 @@ import torch.optim as optim
 from torch.autograd import Variable
 
 BUFFER_SIZE = int(1e5)  # replay buffer size
-BATCH_SIZE = 64         # minibatch size
+BATCH_SIZE = 32         # minibatch size
 GAMMA = 0.99            # discount factor
 TAU = 1e-3              # for soft update of target parameters
 LR = 3e-3               # learning rate 
@@ -47,18 +47,18 @@ class Agent():
     # save sample (error,<s,a,r,s'>) to the replay memory
     def _append_sample(self, state, action, reward, next_state, done):
 
-        state = torch.from_numpy(state).float().unsqueeze(0).to(device)
+        state_on_device = torch.from_numpy(state).float().unsqueeze(0).to(device)
         self.qnetwork_local.eval()
         with torch.no_grad():
-            action_values = self.qnetwork_local(state)
+            action_values = self.qnetwork_local(state_on_device)
             expected_Q = action_values[(0,action)]
         self.qnetwork_local.train()
 
         # ---- Vanilla DQN
-        next_state = torch.from_numpy(next_state).float().unsqueeze(0).to(device)
+        next_state_on_device = torch.from_numpy(next_state).float().unsqueeze(0).to(device)
         self.qnetwork_target.eval()
         with torch.no_grad():
-            predicted_Q = self.qnetwork_target(next_state)
+            predicted_Q = self.qnetwork_target(next_state_on_device)
             max_predicted_Q = predicted_Q.max(1)[0]
         self.qnetwork_target.train()
 
@@ -75,11 +75,12 @@ class Agent():
         count = int(round(error,0))
         for _ in range(count):
             self.memory.add(state, action, reward, next_state, done)
-        # if error > 10.:
-        #     print('error:', error, 'loss', loss.cpu().data)
+        # if error > 1.:
+        #     print('error:', error, 'count', count)
 
     def step(self, state, action, reward, next_state, done):
         # Save experience in replay memory
+        # self.memory.add(state, action, reward, next_state, done)
         self._append_sample(state, action, reward, next_state, done)
         
         # Learn every UPDATE_EVERY time steps.
@@ -126,23 +127,11 @@ class Agent():
         expected_Q = self.qnetwork_local(states).gather(1, actions)
 
         # # ---- Vanilla DQN
-        # # predict Q value for next state using target model
-        # predicted_Q = self.qnetwork_target(next_states).detach()
-        # # get max predicted_Q
-        # max_predicted_Q = predicted_Q.max(1)
-        # max_predicted_Q = max_predicted_Q[0]
-        # max_predicted_Q = max_predicted_Q.unsqueeze(1)
+        max_predicted_Q = self.qnetwork_target(next_states).detach().max(1)[0].unsqueeze(1)
 
         # ----- DDQN
-        # predict Q value for next state using target model
-        # local_actions = self.qnetwork_local(next_states).detach().max(1)[1].unsqueeze(1)
-        # max_predicted_Q = self.qnetwork_target(next_states)[local_actions].unsqueeze(1)
-        # # predict Q value for next state using target model
-        predicted_Q = self.qnetwork_local(next_states).detach()
-        # # get max predicted_Q
-        max_predicted_Q = predicted_Q.max(1)
-        max_predicted_Q = max_predicted_Q[0]
-        max_predicted_Q = max_predicted_Q.unsqueeze(1)
+        # local_next_state_max_action = self.qnetwork_local(next_states).detach().argmax(1).unsqueeze(1)
+        # max_predicted_Q = self.qnetwork_target(next_states).detach().gather(1, local_next_state_max_action)
 
         # get the target Q using current state
         target_Q = rewards + (gamma * max_predicted_Q * (1-dones))
