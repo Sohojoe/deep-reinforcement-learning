@@ -1,3 +1,212 @@
+061 - DDQN, BATCH_SIZE = 32, TAU = 0.00125
+Episode 100     Average Score: 0.18     Epsilon: 0.61
+Episode 200     Average Score: 1.00     Epsilon: 0.37
+Episode 300     Average Score: 3.80     Epsilon: 0.22
+Episode 400     Average Score: 6.88     Epsilon: 0.13
+Episode 500     Average Score: 10.27    Epsilon: 0.08
+Episode 600     Average Score: 12.53    Epsilon: 0.05
+Episode 700     Average Score: 13.21    Epsilon: 0.03
+Episode 800     Average Score: 12.24    Epsilon: 0.02
+Episode 900     Average Score: 12.32    Epsilon: 0.01
+Episode 1000    Average Score: 12.24    Epsilon: 0.01
+High Score: 15.30
+
+061 - DDQN, BATCH_SIZE = 32, TAU = 0.0011
+Episode 100     Average Score: 0.18     Epsilon: 0.61
+Episode 200     Average Score: 0.31     Epsilon: 0.37
+Episode 300     Average Score: 1.33     Epsilon: 0.22
+Episode 400     Average Score: 4.79     Epsilon: 0.13
+Episode 500     Average Score: 9.32     Epsilon: 0.08
+Episode 600     Average Score: 11.24    Epsilon: 0.05
+Episode 700     Average Score: 10.35    Epsilon: 0.03
+Episode 800     Average Score: 9.42     Epsilon: 0.02
+Episode 900     Average Score: 10.83    Epsilon: 0.01
+Episode 1000    Average Score: 11.84    Epsilon: 0.01
+
+060 - DDQN, BATCH_SIZE = 32, TAU = 0.0015
+Episode 100     Average Score: 0.19     Epsilon: 0.61
+Episode 200     Average Score: 1.87     Epsilon: 0.37
+Episode 300     Average Score: 6.16     Epsilon: 0.22
+Episode 400     Average Score: 7.72     Epsilon: 0.13
+Episode 500     Average Score: 10.40    Epsilon: 0.08
+Episode 600     Average Score: 10.86    Epsilon: 0.05
+Episode 700     Average Score: 11.67    Epsilon: 0.03
+Episode 800     Average Score: 11.20    Epsilon: 0.02
+Episode 900     Average Score: 10.37    Epsilon: 0.01
+Episode 1000    Average Score: 11.84    Epsilon: 0.01
+High Score: 15.80
+
+
+059 - DDQN, BATCH_SIZE = 32, TAU = 0.0023
+Episode 100     Average Score: 0.34     Epsilon: 0.61
+Episode 200     Average Score: 3.68     Epsilon: 0.37
+Episode 300     Average Score: 7.03     Epsilon: 0.22
+Episode 400     Average Score: 9.02     Epsilon: 0.13
+Episode 500     Average Score: 9.34     Epsilon: 0.08
+Episode 600     Average Score: 9.70     Epsilon: 0.05
+Episode 700     Average Score: 11.71    Epsilon: 0.03
+Episode 800     Average Score: 12.13    Epsilon: 0.02
+Episode 900     Average Score: 11.27    Epsilon: 0.01
+Episode 1000    Average Score: 12.22    Epsilon: 0.01
+High Score: 15.00
+
+058 - DDQN, BATCH_SIZE = 32, TAU = 0.002
+Episode 100     Average Score: 0.67     Epsilon: 0.61
+Episode 200     Average Score: 3.70     Epsilon: 0.37
+Episode 300     Average Score: 6.11     Epsilon: 0.22
+Episode 400     Average Score: 8.39     Epsilon: 0.13
+Episode 500     Average Score: 9.71     Epsilon: 0.08
+Episode 600     Average Score: 11.20    Epsilon: 0.05
+Episode 700     Average Score: 11.25    Epsilon: 0.03
+Episode 800     Average Score: 12.89    Epsilon: 0.02
+Episode 900     Average Score: 11.42    Epsilon: 0.01
+Episode 1000    Average Score: 11.57    Epsilon: 0.01
+High Score: 16.60
+
+057 - DDQN, BATCH_SIZE = 32, TAU = 0.0007
+Episode 100     Average Score: 0.10     Epsilon: 0.61
+Episode 200     Average Score: 0.13     Epsilon: 0.37
+Episode 300     Average Score: 0.36     Epsilon: 0.22
+Episode 400     Average Score: 0.02     Epsilon: 0.13
+Episode 500     Average Score: 0.24     Epsilon: 0.08
+Episode 600     Average Score: 0.22     Epsilon: 0.05
+Episode 700     Average Score: 0.05     Epsilon: 0.03
+Episode 800     Average Score: 0.48     Epsilon: 0.02
+Episode 900     Average Score: 0.19     Epsilon: 0.01
+Episode 1000    Average Score: 0.09     Epsilon: 0.01
+
+
+056 - DDQN, BATCH_SIZE = 32, TAU = 0.0013 
+Episode 100     Average Score: 0.05     Epsilon: 0.61
+Episode 200     Average Score: 0.58     Epsilon: 0.37
+Episode 300     Average Score: 4.06     Epsilon: 0.22
+Episode 400     Average Score: 7.31     Epsilon: 0.13
+Episode 500     Average Score: 10.17    Epsilon: 0.08
+Episode 600     Average Score: 12.35    Epsilon: 0.05
+Episode 700     Average Score: 12.94    Epsilon: 0.03
+Episode 800     Average Score: 13.88    Epsilon: 0.02
+Episode 900     Average Score: 12.55    Epsilon: 0.01
+Episode 1000    Average Score: 12.99    Epsilon: 0.01
+High Score: 16.40
+
+
+055 - DDQN, BATCH_SIZE = 32, TAU =1
+Episode 100     Average Score: 0.02     Epsilon: 0.61
+Episode 200     Average Score: -0.31    Epsilon: 0.37
+Episode 300     Average Score: -0.01    Epsilon: 0.22
+Episode 400     Average Score: 0.11     Epsilon: 0.13
+Episode 500     Average Score: 0.13     Epsilon: 0.08
+Episode 600     Average Score: 0.03     Epsilon: 0.05
+Episode 700     Average Score: 0.10     Epsilon: 0.03
+Episode 800     Average Score: 0.17     Epsilon: 0.02
+Episode 900     Average Score: -0.12    Epsilon: 0.01
+Episode 1000    Average Score: 0.03     Epsilon: 0.01
+
+054 - DDQN, BATCH_SIZE = 32, TAU = 0.001
+Episode 100     Average Score: 0.13     Epsilon: 0.61
+Episode 200     Average Score: 0.53     Epsilon: 0.37
+Episode 300     Average Score: 3.80     Epsilon: 0.22
+Episode 400     Average Score: 7.09     Epsilon: 0.13
+Episode 500     Average Score: 9.49     Epsilon: 0.08
+Episode 600     Average Score: 9.86     Epsilon: 0.05
+Episode 700     Average Score: 10.74    Epsilon: 0.03
+Episode 800     Average Score: 11.36    Epsilon: 0.02
+Episode 900     Average Score: 12.08    Epsilon: 0.01
+Episode 1000    Average Score: 12.78    Epsilon: 0.01
+High Score: 15.70
+
+053 - DDQN, BATCH_SIZE = 32, TAU = 0.0001
+Episode 100     Average Score: -0.18    Epsilon: 0.61
+Episode 200     Average Score: 0.20     Epsilon: 0.37
+Episode 300     Average Score: 0.48     Epsilon: 0.22
+Episode 400     Average Score: 0.69     Epsilon: 0.13
+Episode 500     Average Score: 0.62     Epsilon: 0.08
+Episode 600     Average Score: 1.18     Epsilon: 0.05
+Episode 700     Average Score: 0.96     Epsilon: 0.03
+Episode 800     Average Score: 1.21     Epsilon: 0.02
+Episode 900     Average Score: 1.18     Epsilon: 0.01
+Episode 1000    Average Score: 1.81     Epsilon: 0.01
+High Score: 5.00
+
+052 - DDQN, BATCH_SIZE = 32, TAU = 0.0003
+Episode 100     Average Score: 0.25     Epsilon: 0.61
+Episode 200     Average Score: 1.03     Epsilon: 0.37
+Episode 300     Average Score: 2.04     Epsilon: 0.22
+Episode 400     Average Score: 2.48     Epsilon: 0.13
+Episode 500     Average Score: 4.53     Epsilon: 0.08
+Episode 600     Average Score: 7.76     Epsilon: 0.05
+Episode 700     Average Score: 11.19    Epsilon: 0.03
+Episode 800     Average Score: 11.46    Epsilon: 0.02
+Episode 900     Average Score: 12.28    Epsilon: 0.01
+Episode 1000    Average Score: 8.79     Epsilon: 0.01
+High Score: 15.30
+
+051 - DDQN, BATCH_SIZE = 32, TAU = 0.1
+Episode 100     Average Score: 0.57     Epsilon: 0.61
+Episode 200     Average Score: 3.16     Epsilon: 0.37
+Episode 300     Average Score: 5.89     Epsilon: 0.22
+Episode 400     Average Score: 7.49     Epsilon: 0.13
+Episode 500     Average Score: 8.70     Epsilon: 0.08
+Episode 600     Average Score: 8.48     Epsilon: 0.05
+Episode 700     Average Score: 8.53     Epsilon: 0.03
+Episode 800     Average Score: 8.98     Epsilon: 0.02
+Episode 900     Average Score: 9.73     Epsilon: 0.01
+Episode 1000    Average Score: 10.02    Epsilon: 0.01
+High Score: 13.20
+
+050 - DDQN, BATCH_SIZE = 32, TAU = 0.3
+States have length: 37
+Episode 100     Average Score: -0.07    Epsilon: 0.61
+Episode 200     Average Score: 1.51     Epsilon: 0.37
+Episode 300     Average Score: 3.53     Epsilon: 0.22
+Episode 400     Average Score: 6.05     Epsilon: 0.13
+Episode 500     Average Score: 6.99     Epsilon: 0.08
+Episode 600     Average Score: 7.58     Epsilon: 0.05
+Episode 700     Average Score: 8.92     Epsilon: 0.03
+Episode 800     Average Score: 9.53     Epsilon: 0.02
+Episode 900     Average Score: 9.72     Epsilon: 0.01
+Episode 1000    Average Score: 9.82     Epsilon: 0.01
+New High Score: 13.30
+
+049 - DDQN, BATCH_SIZE = 32, TAU = 0.01
+Episode 100     Average Score: -0.03    Epsilon: 0.61
+Episode 200     Average Score: 3.20     Epsilon: 0.37
+Episode 300     Average Score: 6.82     Epsilon: 0.22
+Episode 400     Average Score: 8.00     Epsilon: 0.13
+Episode 500     Average Score: 9.33     Epsilon: 0.08
+Episode 600     Average Score: 9.34     Epsilon: 0.05
+Episode 700     Average Score: 9.70     Epsilon: 0.03
+Episode 800     Average Score: 11.41    Epsilon: 0.02
+Episode 900     Average Score: 11.26    Epsilon: 0.01
+Episode 1000    Average Score: 11.15    Epsilon: 0.01
+High Score: 15.30
+
+
+047 - DDQN, BATCH_SIZE = 32, TAU = 0.003 
+Episode 100     Average Score: 1.12     Epsilon: 0.61
+Episode 200     Average Score: 4.36     Epsilon: 0.37
+Episode 300     Average Score: 5.93     Epsilon: 0.22
+Episode 400     Average Score: 8.07     Epsilon: 0.13
+Episode 500     Average Score: 9.83     Epsilon: 0.08
+Episode 600     Average Score: 11.01    Epsilon: 0.05
+Episode 700     Average Score: 11.75    Epsilon: 0.03
+Episode 800     Average Score: 11.64    Epsilon: 0.02
+Episode 900     Average Score: 11.43    Epsilon: 0.01
+Episode 1000    Average Score: 11.64    Epsilon: 0.01
+High Score: 15.70
+
+046 - DDQN, BATCH_SIZE = 32, TAU = 0.03 
+Episode 100     Average Score: 1.42     Epsilon: 0.61
+Episode 200     Average Score: 3.73     Epsilon: 0.37
+Episode 300     Average Score: 5.51     Epsilon: 0.22
+Episode 400     Average Score: 6.89     Epsilon: 0.13
+Episode 500     Average Score: 9.25     Epsilon: 0.08
+Episode 600     Average Score: 8.60     Epsilon: 0.05
+Episode 700     Average Score: 10.25    Epsilon: 0.03
+Episode 800     Average Score: 10.06    Epsilon: 0.02
+Episode 900     Average Score: 11.04    Epsilon: 0.01
+Episode 1000    Average Score: 10.87    Epsilon: 0.01
+High Score: 14.50
 
 045 - DDQN + SPER, BATCH_SIZE = 32
 Episode 100     Average Score: 0.31     Epsilon: 0.61
