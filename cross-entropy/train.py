@@ -57,7 +57,7 @@ class Agent(nn.Module):
         x = F.tanh(self.fc2(x))
         return x.cpu().data
         
-    def evaluate(self, weights, gamma=1.0, max_t=5000):
+    def evaluate(self, weights, gamma=1.0, max_t=5000, render=False):
         self.set_weights(weights)
         episode_return = 0.0
         state = self.env.reset()
@@ -65,7 +65,8 @@ class Agent(nn.Module):
             state = torch.from_numpy(state).float().to(device)
             action = self.forward(state)
             state, reward, done, _ = self.env.step(action)
-            env.render()
+            if render:
+                env.render()
             episode_return += reward * math.pow(gamma, t)
             if done:
                 break
@@ -73,7 +74,7 @@ class Agent(nn.Module):
     
 agent = Agent(env).to(device)
 
-def cem(n_iterations=500, max_t=1000, gamma=1.0, print_every=10, pop_size=50, elite_frac=0.2, sigma=0.5):
+def cem(n_iterations=500, max_t=1000, gamma=1.0, print_every=1, pop_size=50, elite_frac=0.2, sigma=0.5):
     """PyTorch implementation of the cross-entropy method.
         
     Params
@@ -88,7 +89,7 @@ def cem(n_iterations=500, max_t=1000, gamma=1.0, print_every=10, pop_size=50, el
     """
     n_elite=int(pop_size*elite_frac)
 
-    scores_deque = deque(maxlen=100)
+    scores_deque = deque(maxlen=10)
     scores = []
     best_weight = sigma*np.random.randn(agent.get_weights_dim())
 
@@ -100,16 +101,16 @@ def cem(n_iterations=500, max_t=1000, gamma=1.0, print_every=10, pop_size=50, el
         elite_weights = [weights_pop[i] for i in elite_idxs]
         best_weight = np.array(elite_weights).mean(axis=0)
 
-        reward = agent.evaluate(best_weight, gamma=1.0)
+        reward = agent.evaluate(best_weight, gamma=1.0, render=True)
         scores_deque.append(reward)
         scores.append(reward)
         
-        torch.save(agent.state_dict(), 'checkpoint.pth')
-        
         if i_iteration % print_every == 0:
+            # torch.save(agent.state_dict(), 'checkpoint.pth')
             print('Episode {}\tAverage Score: {:.2f}'.format(i_iteration, np.mean(scores_deque)))
 
         if np.mean(scores_deque)>=90.0:
+            torch.save(agent.state_dict(), 'checkpoint.pth')
             print('\nEnvironment solved in {:d} iterations!\tAverage Score: {:.2f}'.format(i_iteration-100, np.mean(scores_deque)))
             break
     return scores

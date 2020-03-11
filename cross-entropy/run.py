@@ -71,15 +71,11 @@ agent = Agent(env).to(device)
 agent.load_state_dict(torch.load('checkpoint.pth'))
 
 state = env.reset()
-img = plt.imshow(env.render(mode='rgb_array'))
 while True:
     state = torch.from_numpy(state).float().to(device)
     with torch.no_grad():
         action = agent(state)
-    img.set_data(env.render(mode='rgb_array')) 
-    plt.axis('off')
-    display.display(plt.gcf())
-    display.clear_output(wait=True)
+    env.render()
     next_state, reward, done, _ = env.step(action)
     state = next_state
     if done:
