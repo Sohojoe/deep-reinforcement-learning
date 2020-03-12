@@ -74,7 +74,7 @@ class Agent(nn.Module):
     
 agent = Agent(env).to(device)
 
-def cem(n_iterations=500, max_t=1000, gamma=1.0, print_every=1, pop_size=50, elite_frac=0.2, sigma=0.5):
+def cem(n_iterations=500, max_t=1000, gamma=1.0, print_every=10, pop_size=50, elite_frac=0.2, sigma=0.5):
     """PyTorch implementation of the cross-entropy method.
         
     Params
@@ -91,6 +91,8 @@ def cem(n_iterations=500, max_t=1000, gamma=1.0, print_every=1, pop_size=50, eli
 
     scores_deque = deque(maxlen=10)
     scores = []
+    elite_scores_deque = deque(maxlen=10)
+    elite_scores = []
     best_weight = sigma*np.random.randn(agent.get_weights_dim())
 
     for i_iteration in range(1, n_iterations+1):
@@ -99,28 +101,37 @@ def cem(n_iterations=500, max_t=1000, gamma=1.0, print_every=1, pop_size=50, eli
 
         elite_idxs = rewards.argsort()[-n_elite:]
         elite_weights = [weights_pop[i] for i in elite_idxs]
+        elite_rewards = [rewards[i] for i in elite_idxs]
+        elite_ave_reward = np.array(elite_rewards).mean(axis=0)
         best_weight = np.array(elite_weights).mean(axis=0)
 
-        reward = agent.evaluate(best_weight, gamma=1.0, render=True)
+        # reward = agent.evaluate(best_weight, gamma=1.0, render=True)
+        reward = agent.evaluate(best_weight, gamma=1.0, render=False)
         scores_deque.append(reward)
         scores.append(reward)
+        elite_scores_deque.append(elite_ave_reward)
+        elite_scores.append(elite_ave_reward)
         
-        if i_iteration % print_every == 0:
-            # torch.save(agent.state_dict(), 'checkpoint.pth')
-            print('Episode {}\tAverage Score: {:.2f}'.format(i_iteration, np.mean(scores_deque)))
 
-        if np.mean(scores_deque)>=90.0:
+        # print('Episode {}\tAverage Score: {:.2f}\tLast Score: {:.2f}'.format(i_iteration, np.mean(scores_deque), reward))
+        print('Episode {}\tAverage Score: {:.2f}\tLast Score: {:.2f}\tElite Score: {:.2f}\tAve Elite Score: {:.2f}'.format(
+            i_iteration, np.mean(scores_deque), 
+            reward, elite_ave_reward,
+            np.mean(elite_scores_deque)))
+
+        if np.mean(scores_deque)>=90.0 or np.mean(elite_scores_deque)>=90.0:
             torch.save(agent.state_dict(), 'checkpoint.pth')
-            print('\nEnvironment solved in {:d} iterations!\tAverage Score: {:.2f}'.format(i_iteration-100, np.mean(scores_deque)))
+            print('\nEnvironment solved in {:d} iterations!\tAverage Score: {:.2f}'.format(i_iteration, np.mean(scores_deque)))
             break
-    return scores
+    return scores, elite_scores
 
-scores = cem()
+scores, elite_scores = cem()
 
 # plot the scores
 fig = plt.figure()
 ax = fig.add_subplot(111)
 plt.plot(np.arange(1, len(scores)+1), scores)
+plt.plot(np.arange(1, len(elite_scores)+1), elite_scores)
 plt.ylabel('Score')
 plt.xlabel('Episode #')
 plt.show()
