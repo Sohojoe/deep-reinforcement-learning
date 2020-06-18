@@ -59,6 +59,7 @@ def main():
     os.makedirs(model_dir, exist_ok=True)
 
     torch.set_num_threads(parallel_envs)
+    # env = envs.make_env("simple_adversary")
     env = envs.make_parallel_env(parallel_envs)
     
     # keep 5000 episodes worth of replay
@@ -80,8 +81,10 @@ def main():
     timer = pb.ProgressBar(widgets=widget, maxval=number_of_episodes).start()
 
     # use keep_awake to keep workspace from disconnecting
-    for episode in keep_awake(range(0, number_of_episodes, parallel_envs)):
-
+    # for episode in keep_awake(range(0, number_of_episodes, parallel_envs)):
+    for episode in range(0, number_of_episodes, parallel_envs):
+        import time
+        time.sleep(5)
         timer.update(episode)
 
 
